@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html,body{
+            height:100%;
+        }
+        .dragElem{
+            position: absolute;
+            left:50%;
+            top:50%;
+            cursor: pointer;
+            user-select: none;
+        }
+        .dragElem .title{
+            box-sizing: border-box;
+            width:100%;
+            height:50px;
+            padding:15px 10px;
+            background: darkcyan;
+            border-radius: 5px 5px 0 0;
+        }
+        .dragElem .content{
+            width:300px;
+            height:100px;
+            padding:5px 10px;
+            background: aquamarine;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="dragElem">
+    <div class="title">拖拽</div>
+    <div class="content">
+        随意拖拽吧！
+    </div>
+</div>
+
+<script src="jquery-3.1.0.js"></script>
+<script>
+    function toDrag() {
+        var dragElem=document.querySelector('.dragElem');
+
+        dragElem.onmousedown=function (event) {
+            var left=event.clientX-this.offsetLeft;
+            var top=event.clientY-this.offsetTop;
+            //document.onmousemove=function (event) {
+            dragElem.onmousemove=function (event) {
+                var x=event.clientX;
+                var y=event.clientY;
+                //鼠标坐标值减去距当前元素左，上的距离即为当前元素的位置；
+                dragElem.style.left=x-left+'px';
+                dragElem.style.top=y-top+'px';
+            }
+        };
+
+        dragElem.onmouseup=function (event) {
+            dragElem.onmousemove=null;
+        };
+    }
+
+    toDrag();
+</script>
+</body>
+</html>
